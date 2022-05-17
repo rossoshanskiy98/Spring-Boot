@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.UserService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 @Controller
@@ -37,7 +38,11 @@ public class UserController {
 
     @PostMapping
     public String addUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+        try {
+            userService.add(user);
+        } catch (Exception e) {
+            //ignored
+        }
         return "redirect:/";
     }
 
@@ -49,7 +54,11 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public String editUser(@ModelAttribute("user") User user) {
-        userService.update(user);
+        try {
+            userService.update(user);
+        } catch (Exception e) {
+            //ignored
+        }
         return "redirect:/";
     }
 

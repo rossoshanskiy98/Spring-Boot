@@ -1,16 +1,19 @@
 package com.example.demo.model;
 
+import org.hibernate.annotations.Check;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@Check(constraints = "age > 0")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "firstname")
+    @Column(name = "firstname", unique = true)
     private String firstName;
 
     @Column(name = "lastname")
@@ -55,7 +58,7 @@ public class User {
         return age;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(int age) throws Exception {
+            this.age = age;
     }
 }
